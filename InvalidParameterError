@@ -1,0 +1,8 @@
+const trueValue = R.always(true);
+const falseValue = R.always(false);
+const isString = R.is(String);
+const throwError = (message)=>{throw new Error(message)};
+const invalidParamError = (param)=>throwError(`Invlid parameter: ${param}`);
+const isStringOrError = R.ifElse(isString,trueValue,invalidParamError);
+const trimOrError = R.ifElse(isStringOrError,R.trim,R.identity);
+trimOrError(1)
