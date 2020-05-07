@@ -1,0 +1,2 @@
+const fullName = R.pipe(R.props(["firstName","lastName"]),R.join(" "));
+fullName({firstName:"Govardhan",lastName:"Chaudhari"})
