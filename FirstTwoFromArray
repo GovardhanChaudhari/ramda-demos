@@ -1,0 +1,3 @@
+const firstTwo = R.take(2);
+const firstTwoFromArray = R.map(firstTwo);
+firstTwoFromArray(["abc","def"]); // ["ab","de"]
