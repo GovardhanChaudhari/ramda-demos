@@ -6,7 +6,8 @@ const name='x';
 const value=4;
 const isFunction = R.is(Function);
 const paramToFunc = (p)=>()=>p;
-const funcOrValue = R.unless(isFunction,paramToFunc);
-const up=(name,value,obj)=>R.evolve({[name]:funcOrValue(value)},obj);
-up('x',doubleAndAdd3,obj);  // 5
-up('x',6,obj);  // 6
+const toFunction = R.unless(isFunction,paramToFunc);
+const toEvolveParam = (key,value)=>({[key]:toFunction(value)});
+const up=(name,value,obj)=>R.evolve(toEvolveParam(name,value),obj);
+up('x',doubleAndAdd3,obj); // 5
+up('x',6,obj); // 6
