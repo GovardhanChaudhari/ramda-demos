@@ -13,7 +13,8 @@ const paramToFunc = (p)=>()=>p;
 const toFunction = R.unless(isFunction,paramToFunc);
 const toEvolveParam = (key,value)=>({[key]:toFunction(value)});
 const up=R.curry((name,value,obj)=>R.evolve(toEvolveParam(name,value),obj));
-const doubleAndAdd3ToX = up("x",doubleAndAdd3);
+const doubleAndAdd3ToX = up(name,doubleAndAdd3);
 const upsf =(pred,func) => R.compose(R.filter(pred),R.map(func));
 upsf(pred,doubleAndAdd3ToX)(objs);
-R.transduce(upsf(pred,doubleAndAdd3ToX),R.flip(R.append),[],objs) // [{"x": 9, "y": 4, "z": 10}]
+const upf = R.curry((pred,func,array)=>R.transduce(upsf(pred,func),R.flip(R.append),[],array));
+upf(pred,doubleAndAdd3ToX,objs); // [{"x": 9, "y": 4, "z": 10}]
